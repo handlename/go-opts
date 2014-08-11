@@ -2,12 +2,13 @@ package opts
 
 import (
 	"flag"
+	"fmt"
 	"reflect"
 	"strconv"
 )
 
 // Parse command line options according to definition.
-func Parse(d interface{}) {
+func Parse(d interface{}) (err error) {
 	rv := reflect.ValueOf(d).Elem()
 
 	for i := 0; i < rv.NumField(); i++ {
@@ -15,6 +16,8 @@ func Parse(d interface{}) {
 		fv := rv.Field(i)
 
 		switch x := fv.Addr().Interface().(type) {
+		default:
+			return fmt.Errorf("invalid type: %s", ft.Name)
 		case *string:
 			flag.StringVar(
 				x,
@@ -37,6 +40,8 @@ func Parse(d interface{}) {
 	}
 
 	flag.Parse()
+
+	return nil
 }
 
 func atoi(s string) (i int) {
