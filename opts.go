@@ -36,6 +36,12 @@ func Parse(d interface{}) (err error) {
 				ft.Tag.Get("flag"),
 				atof(ft.Tag.Get("default")),
 				ft.Tag.Get("description"))
+		case *bool:
+			flag.BoolVar(
+				x,
+				ft.Tag.Get("flag"),
+				atob(ft.Tag.Get("default")),
+				ft.Tag.Get("description"))
 		}
 	}
 
@@ -52,4 +58,15 @@ func atoi(s string) (i int) {
 func atof(s string) (f float64) {
 	f, _ = strconv.ParseFloat(s, 64)
 	return f
+}
+
+func atob(s string) (b bool) {
+	switch s {
+	case "true":
+		b = true
+	case "false":
+		b = false
+	}
+
+	return b
 }
