@@ -14,22 +14,22 @@ func Parse(d interface{}) {
 		ft := rv.Type().Field(i)
 		fv := rv.Field(i)
 
-		switch fv.Kind() {
-		case reflect.String:
+		switch x := fv.Addr().Interface().(type) {
+		case *string:
 			flag.StringVar(
-				fv.Addr().Interface().(*string),
+				x,
 				ft.Tag.Get("flag"),
 				ft.Tag.Get("default"),
 				ft.Tag.Get("description"))
-		case reflect.Int:
+		case *int:
 			flag.IntVar(
-				fv.Addr().Interface().(*int),
+				x,
 				ft.Tag.Get("flag"),
 				atoi(ft.Tag.Get("default")),
 				ft.Tag.Get("description"))
-		case reflect.Float64:
+		case *float64:
 			flag.Float64Var(
-				fv.Addr().Interface().(*float64),
+				x,
 				ft.Tag.Get("flag"),
 				atof(ft.Tag.Get("default")),
 				ft.Tag.Get("description"))
