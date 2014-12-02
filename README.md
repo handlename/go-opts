@@ -46,7 +46,7 @@ Test...
 
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+[MIT](https://github.com/handlename/go-opts/blob/master/LICENCE)
 
 ## Author
 
